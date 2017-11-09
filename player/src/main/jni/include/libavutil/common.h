@@ -25,6 +25,7 @@
 
 #ifndef AVUTIL_COMMON_H
 #define AVUTIL_COMMON_H
+
 #define UINT64_C(c)     c ## UL
 #if defined(__cplusplus) /*&& !defined(__STDC_CONSTANT_MACROS) */&& !defined(UINT64_C)
 #error missing -D__STDC_CONSTANT_MACROS / #define __STDC_CONSTANT_MACROS
