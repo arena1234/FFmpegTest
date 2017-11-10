@@ -1,0 +1,13 @@
+package com.wq.ffmpegtest.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+
+/**
+ * Created by qiangwang on 11/10/17.
+ */
+
+public class BaseFragment extends Fragment {
+
+}

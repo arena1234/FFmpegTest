@@ -38,9 +38,10 @@ pthread_cond_t cond;
 pthread_mutex_t mutex;
 struct timeval now;
 struct timespec outtime;
+
 void sleepMs(int nHm) {
     gettimeofday(&now, NULL);
-    now.tv_usec += 1000*nHm;
+    now.tv_usec += 1000 * nHm;
     if (now.tv_usec > 1000000) {
         now.tv_sec += now.tv_usec / 1000000;
         now.tv_usec %= 1000000;
@@ -140,8 +141,8 @@ int JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {
 }
 
 void JNICALL JNI_OnUnload(JavaVM *vm, void *reserved) {
-    delete  pPlayer;
-    if(bAttachThread){
+    delete pPlayer;
+    if (bAttachThread) {
         bAttachThread = JNI_FALSE;
         vm->DetachCurrentThread();
     }

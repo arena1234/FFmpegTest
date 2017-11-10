@@ -8,55 +8,63 @@ import android.util.Log;
  */
 
 public class FFmpegApi {
-    public void setVideoSource(String path){
+    public void setVideoSource(String path) {
         nativeSetVideoSource(path);
     }
 
-    public void play(){
+    public void play() {
         nativePlay();
     }
 
-    public void pause(){
+    public void pause() {
         nativePause();
     }
 
-    public void stop(){
+    public void stop() {
         nativeStop();
     }
 
-    public boolean isPlaying(){
+    public boolean isPlaying() {
         return nativeIsPlaying();
     }
 
-    public void seekTo(int timeMs){
+    public void seekTo(int timeMs) {
         nativeSeekTo(timeMs);
     }
 
-    public int getTotalTime(){
+    public int getTotalTime() {
         return nativeGetTotalTime();
     }
 
-    public int getCurrentTime(){
+    public int getCurrentTime() {
         return nativeGetCurrentTime();
     }
 
-    private void onUpdateFrame(Bitmap bmp){
+    private void onUpdateFrame(Bitmap bmp) {
         Log.d("qqqq", "onUpdateFrame");
     }
 
-    private void prepared(){
+    private void prepared() {
         Log.d("qqqq", "prepared");
     }
 
     private native void nativeSetVideoSource(String path);
+
     private native void nativePlay();
+
     private native void nativePause();
+
     private native void nativeStop();
+
     private native void nativeSeekTo(int timeMs);
+
     private native boolean nativeIsPlaying();
+
     private native int nativeGetTotalTime();
+
     private native int nativeGetCurrentTime();
-    static{
+
+    static {
         System.loadLibrary("jni_ffmpeg");
     }
 }
