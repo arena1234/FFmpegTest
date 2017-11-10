@@ -40,6 +40,10 @@ public class FFmpegApi {
         return nativeGetCurrentTime();
     }
 
+    public String getVideoInfo() {
+        return nativeGetVideoInfo();
+    }
+
     private void onUpdateFrame(Bitmap bmp) {
         Log.d("qqqq", "onUpdateFrame");
     }
@@ -63,6 +67,8 @@ public class FFmpegApi {
     private native int nativeGetTotalTime();
 
     private native int nativeGetCurrentTime();
+
+    private native String nativeGetVideoInfo();
 
     static {
         System.loadLibrary("jni_ffmpeg");

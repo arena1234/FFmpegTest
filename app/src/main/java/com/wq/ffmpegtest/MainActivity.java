@@ -3,17 +3,25 @@ package com.wq.ffmpegtest;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.FrameLayout;
 
+import com.wq.ffmpegtest.adapter.Item;
 import com.wq.ffmpegtest.fragment.MenuFragment;
+import com.wq.ffmpegtest.fragment.VideoDetailsFragment;
 import com.wq.ffmpegtest.widget.CustomDrawerLayout;
+import com.wq.player.Native.FFmpegApi;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MenuFragment.OnItemClickListener, View.OnClickListener{
     private ActionBarDrawerToggle mDrawerToggle;
     private CustomDrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private FrameLayout mContentLayout;
     private FrameLayout mMenuLayout;
+    private FFmpegApi mFFmpeg;
+
+    private MenuFragment mMenuFragment;
+    private VideoDetailsFragment mVideoDetailsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +34,28 @@ public class MainActivity extends BaseActivity {
 
         initMenu();
 
+        mMenuFragment = new MenuFragment();
+        mVideoDetailsFragment = new VideoDetailsFragment();
+        mFFmpeg = new FFmpegApi();
 
         getSupportFragmentManager().
                 beginTransaction().
-                replace(R.id.layout_menu, new MenuFragment()).
+                replace(R.id.layout_menu, mMenuFragment).
                 commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mMenuFragment.setOnItemClickListener(this);
+        mVideoDetailsFragment.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mMenuFragment.setOnItemClickListener(null);
+        mVideoDetailsFragment.setOnClickListener(null);
     }
 
     private void initMenu() {
@@ -47,5 +72,30 @@ public class MainActivity extends BaseActivity {
                 R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.setCustomDrawerListener(mDrawerToggle);
+    }
+
+    @Override
+    public void onItemClick(Item item) {
+        switch (item.getId()){
+            case 0:
+                getSupportFragmentManager().
+                        beginTransaction().
+                        replace(R.id.layout_content, mVideoDetailsFragment).
+                        commit();
+                break;
+            case 1:
+
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_video_details:
+                mFFmpeg.setVideoSource("/sdcard/DCIM/Camera/VID_20170106_114434.3gp");
+                mVideoDetailsFragment.setDetails(mFFmpeg.getVideoInfo());
+                break;
+        }
     }
 }

@@ -112,6 +112,12 @@ jint getCurrentTime(JNIEnv *env, jobject thiz) {
     return pPlayer->getCurrentTime();
 }
 
+jstring getVideoInfo(JNIEnv *env, jobject thiz) {
+    char info[1024] = { 0 };
+    sprintf(info, "%s\n", avcodec_configuration());
+    return env->NewStringUTF(info);
+}
+
 JNINativeMethod gMethods[] = {
         {"nativeSetVideoSource", "(Ljava/lang/String;)V", (void *) setVideoSource},
         {"nativePlay",           "()V",                   (void *) play},
@@ -120,7 +126,8 @@ JNINativeMethod gMethods[] = {
         {"nativeIsPlaying",      "()Z",                   (void *) isPlaying},
         {"nativeSeekTo",         "(I)V",                  (void *) seekTo},
         {"nativeGetTotalTime",   "()I",                   (void *) getTotalTime},
-        {"nativeGetCurrentTime", "()I",                   (void *) getCurrentTime}
+        {"nativeGetCurrentTime", "()I",                   (void *) getCurrentTime},
+        {"nativeGetVideoInfo",   "()Ljava/lang/String;",  (void *) getVideoInfo}
 };
 
 int JNICALL JNI_OnLoad(JavaVM *vm, void *reserved) {

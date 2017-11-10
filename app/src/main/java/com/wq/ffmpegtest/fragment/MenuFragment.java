@@ -53,6 +53,16 @@ public class MenuFragment extends BaseFragment implements BaseQuickAdapter.OnIte
 
     @Override
     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        Item item = (Item) adapter.getItem(position);
+        if (mListener != null) mListener.onItemClick((Item) adapter.getItem(position));
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Item item);
+    }
+
+    private OnItemClickListener mListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
     }
 }

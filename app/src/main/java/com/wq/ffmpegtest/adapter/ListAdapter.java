@@ -9,7 +9,7 @@ import com.wq.ffmpegtest.R;
 public class ListAdapter extends BaseQuickAdapter<Item, BaseViewHolder> {
     private Context mContext;
     public ListAdapter(Context context) {
-        super(R.layout.item_list, DataServer.getSampleData(99));
+        super(R.layout.item_list, DataServer.getSampleData());
         mContext = context;
     }
 
